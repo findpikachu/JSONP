@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>pay</title>
+    <style>
+        p {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <p>您的账户余额是<span id="amount">&&&amount&&&</span></p>
+    <button id="btn">付款一块钱</button>
+    <script>
+       
+        btn.addEventListener("click",() => {
+           let script = document.createElement("script")
+           let functionName = "frank" + Math.floor(Math.random() * 10000)
+           window[functionName] = (response) => {
+                if (response === "success") {
+                    amount = document.querySelector("#amount")
+                    number = Number(amount.innerHTML) - 1
+                    amount.innerHTML = number
+                 }
+            }
+           script.src = `http://jack.com:8002/pay?callback=${functionName}`
+           document.body.appendChild(script)
+           script.onload = () => {
+               document.body.removeChild(script)
+               delete window[functionName]
+           }
+           script.onerror = () => {
+               alert("fail")
+               delete window[functionName]
+           }
+        //    let img = document.createElement("img")
+        //    img.src = "/pay"
+        //    img.onload = () => {
+        //        alert("success")
+        //        location.reload()
+        //    }
+        //    img.onerror = () => {
+        //        alert("fail")
+        //    }
+        })
+    </script>
+    <!-- <form action="/pay" method="post">
+        <input type="submit" value="付款一块钱">
+    </form> -->
+    <!-- <script>
+        let btn = document.querySelector("#btn")
+        let amount = document.querySelector("#amount")
+        btn.addEventListener("click",() => {
+            let number = Number(amount.innerHTML) - 1
+            amount.innerHTML = number
+        })
+    </script> -->
+</body>
+</html>
